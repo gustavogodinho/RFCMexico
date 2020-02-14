@@ -4,9 +4,19 @@ namespace RFCMexico
 {
     class Program
     {
-        static void Main(string[] args)
+        public static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+
+            RFCMexico mexico = new RFCMexico 
+            { 
+                PrimeiroNome = "Tetes", 
+                SegundoNome = "Test", 
+                TerceiroNome = " aa", 
+                DtNascimento = DateTime.Now 
+            };
+
+            mexico.GerarRFC(mexico);
+
         }
     }
 }
