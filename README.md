@@ -1,4 +1,4 @@
-# Construcción del RFC  - Mexico  (Atencion !  Não Homologado)
+# Construcción del RFC  - Mexico  
 
   - Remueve letras con acentos para construcción del RFC.
   - Remueve nombres y abreviaciones comunes descartadosen la construcción del RFC.
@@ -6,5 +6,5 @@
   - Sustituye palabra prohibidas en RFC.
   - Remueve palabras no válidas en la construcción del.
   
-  
+  Não Homologado. 
 
