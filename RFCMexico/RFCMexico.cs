@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Text;
 using System.Text.RegularExpressions;
 
@@ -12,21 +13,21 @@ namespace RFCMexico
         public string SegundoNome { get; set; }
         public string TerceiroNome { get; set; }
         public DateTime DtNascimento { get; set; }
-        public int NascDia { get; set; }
-        public int NascMes { get; set; }
-        public int NascAno { get; set; }
+        public string NascDia { get; set; }
+        public string NascMes { get; set; }
+        public string NascAno { get; set; }
 
 
         public string GerarRFC(RFCMexico rfcMexico)
         {
             RFCMexico mexico = new RFCMexico
             {
-                PrimeiroNome = RemoveNomesComuns(RemovePrefixos(LimpaString(rfcMexico.PrimeiroNome))),
-                SegundoNome = RemovePrefixos(LimpaString(rfcMexico.SegundoNome)),
-                TerceiroNome = RemovePrefixos(LimpaString(rfcMexico.TerceiroNome)),
-                NascDia = rfcMexico.DtNascimento.Day,
-                NascMes = rfcMexico.DtNascimento.Month,
-                NascAno = rfcMexico.DtNascimento.Year
+                PrimeiroNome = RemoveNomesComuns(RemovePrefixos(LimpaString(rfcMexico.PrimeiroNome.ToUpper()))),
+                SegundoNome = RemovePrefixos(LimpaString(rfcMexico.SegundoNome.ToUpper())),
+                TerceiroNome = RemovePrefixos(LimpaString(rfcMexico.TerceiroNome.ToUpper())),
+                NascDia = rfcMexico.DtNascimento.ToString("dd", CultureInfo.InvariantCulture),
+                NascMes = rfcMexico.DtNascimento.ToString("MM", CultureInfo.InvariantCulture),
+                NascAno = rfcMexico.DtNascimento.ToString("yy", CultureInfo.InvariantCulture)
             };
 
             return GerarParteComum(mexico);
@@ -84,9 +85,9 @@ namespace RFCMexico
         {
             var x = ObterLetrasRFC(mexico.PrimeiroNome, mexico.SegundoNome, mexico.TerceiroNome);
             x = RemovePalavrasNaoAceitas(x);
-            x += mexico.NascAno.ToString("yy");
+            x += mexico.NascAno.ToString();
             x += mexico.NascMes;
-            x += mexico.NascAno;
+            x += mexico.NascDia;
 
             return x;
         }
@@ -94,6 +95,12 @@ namespace RFCMexico
         private string ObterLetrasRFC(string primeiroNome, string segundoNome, string terceiroNome)
         {
             string letras;
+
+            string[] vogais = new string[] { "A", "E", "I", "O", "U" };
+
+            string vogais1 = "AEIOU";
+            string vogal = string.Empty;
+
 
             if (terceiroNome.Length == 0)
             {
@@ -105,8 +112,26 @@ namespace RFCMexico
             }
             else
             {
-                bool eVogal = new Regex(@"^[AEIOU]").IsMatch(segundoNome.Substring(0, 1));
-                letras = segundoNome[0] + (eVogal == true ? segundoNome.Substring(0, 1) : "") + terceiroNome[0] + primeiroNome[0];
+                bool eVogal = false;
+
+                for (int i = 0; i <= SegundoNome.Length; i++)
+                {
+                    for (int x = 0; x < vogais.Length; x++)
+                    {
+                        if (segundoNome.Substring(i, 1) == vogais[x])
+                        {
+                            vogal = segundoNome.Substring(i, 1);
+                            eVogal = true;
+                        }
+
+                    }
+                    if (eVogal)
+                    {
+                        break;
+                    }
+
+                }
+                letras = segundoNome[0] + vogal + terceiroNome[0] + primeiroNome[0];
             }
             return letras;
         }

@@ -9,13 +9,16 @@ namespace RFCMexico
 
             RFCMexico mexico = new RFCMexico 
             { 
-                PrimeiroNome = "Tetes", 
-                SegundoNome = "Test", 
-                TerceiroNome = " aa", 
-                DtNascimento = DateTime.Now 
+                PrimeiroNome = "Juan", 
+                SegundoNome = "Barrios", 
+                TerceiroNome = "Fernández", 
+                DtNascimento = DateTime.Now
             };
 
-            mexico.GerarRFC(mexico);
+            var r = mexico.GerarRFC(mexico);
+
+            Console.WriteLine(r);
+
 
         }
     }
