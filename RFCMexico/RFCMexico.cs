@@ -17,8 +17,6 @@ namespace RFCMexico
         public int NascAno { get; set; }
 
 
-
-
         public string GerarRFC(RFCMexico rfcMexico)
         {
             RFCMexico mexico = new RFCMexico
@@ -36,19 +34,19 @@ namespace RFCMexico
 
         private string LimpaString(string palavra)
         {
+            string comAcentos = "ÄÅÁÂÀÃäáâàãÉÊËÈéêëèÍÎÏÌíîïìÖÓÔÒÕöóôòõÜÚÛüúûùÇç";
+            string semAcentos = "AAAAAAaaaaaEEEEeeeeIIIIiiiiOOOOOoooooUUUuuuuCc";
 
-            return "";
-        }
+            for (int i = 0; i < comAcentos.Length; i++)
+            {
+                palavra = palavra.Replace(comAcentos[i].ToString(), semAcentos[i].ToString());
+            }
 
-        private string RemoveAcentos(string palavra)
-        {
-
-            return "";
+            return palavra;
         }
 
         private string RemovePrefixos(string nome)
         {
-
             string[] prefixos = new string[] {"PARA ", "AND ", "CON ", "DEL ", "LAS ",
                                               "LOS ", "MAC ", "POR ", "SUS ",
                                               "THE ", "VAN ", "VON ", "AL ",
@@ -56,9 +54,14 @@ namespace RFCMexico
                                               "MI ", "OF ", "A ", "E ", "Y ",
                                               "DE LOS", "LOS "};
 
-
-
-            return "";
+            foreach (var item in prefixos)
+            {
+                if (nome == item)
+                {
+                    nome = "";
+                }
+            }
+            return nome;
         }
 
         private string RemoveNomesComuns(string nome)
@@ -67,13 +70,25 @@ namespace RFCMexico
                                                "MARIA ", "JOSE DE ", "JOSE ",
                                                "MA. ",  "MA ", "M. ", "J. ", "J "};
 
-            return "";
+            foreach (var item in naoNomes)
+            {
+                if (nome == item)
+                {
+                    nome = "";
+                }
+            }
+            return nome;
         }
 
         private string GerarParteComum(RFCMexico mexico)
         {
+            var x = ObterLetrasRFC(mexico.PrimeiroNome, mexico.SegundoNome, mexico.TerceiroNome);
+            x = RemovePalavrasNaoAceitas(x);
+            x += mexico.NascAno.ToString("yy");
+            x += mexico.NascMes;
+            x += mexico.NascAno;
 
-            return "";
+            return x;
         }
 
         private string ObterLetrasRFC(string primeiroNome, string segundoNome, string terceiroNome)
@@ -96,12 +111,25 @@ namespace RFCMexico
             return letras;
         }
 
-        private string RemovePalavrasNaoAceitas()
+        private string RemovePalavrasNaoAceitas(string palavra)
         {
-            string[] palavrasNaoAceitas = new string[] { };
+            string[] palavrasNaoAceitas = new string[] { "BUEI",
+                                                        "BUEY","CACA","CACO","CAGA","CAGO","CAKA",
+                                                        "COGE","COJA","COJE","COJI","COJO","CULO",
+                                                        "FETO","GUEY","JOTO","KACA","KACO","KAGA",
+                                                        "KAGO","KOGE","KOJO","KAKA","KULO","MAME",
+                                                        "MAMO","MEAR","MEON","MION","MOCO","MULA",
+                                                        "PEDA","PEDO","PENE","PUTA","PUTO","QULO",
+                                                        "RATA","RUIN"};
+            foreach (var item in palavrasNaoAceitas)
+            {
+                if (palavra == item)
+                {
+                    palavra = palavra.Substring(0, 3) + "X";
+                }
+            }
 
-
-            return "";
+            return palavra;
         }
     }
 }
