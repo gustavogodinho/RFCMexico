@@ -97,10 +97,7 @@ namespace RFCMexico
             string letras;
 
             string[] vogais = new string[] { "A", "E", "I", "O", "U" };
-
-            string vogais1 = "AEIOU";
             string vogal = string.Empty;
-
 
             if (terceiroNome.Length == 0)
             {
@@ -114,7 +111,7 @@ namespace RFCMexico
             {
                 bool eVogal = false;
 
-                for (int i = 0; i <= SegundoNome.Length; i++)
+                for (int i = 0; i <= segundoNome.Length; i++)
                 {
                     for (int x = 0; x < vogais.Length; x++)
                     {
