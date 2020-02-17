@@ -7,12 +7,16 @@ namespace RFCMexico
     {
         public static void Main(string[] args)
         {
+
+            //Teste 
             Mexico();
 
         }
 
         public  static void Mexico()
         {
+            // --------------E J E M P L O S--------------
+
             List<RFCMexico> rFCMexicos = new List<RFCMexico>();
 
             rFCMexicos.Add(new RFCMexico() { PrimeiroNome = "Juan", SegundoNome = "Barrios", TerceiroNome = "Fernández", DtNascimento = new DateTime(1970, 12, 13) });
@@ -55,6 +59,9 @@ namespace RFCMexico
             rFCMexicos.Add(new RFCMexico() { PrimeiroNome = "Luz Ma.", SegundoNome = "Fernández", TerceiroNome = "Juárez", DtNascimento = new DateTime(1960, 01, 01) });
 
             RFCMexico rFC = new RFCMexico();
+
+
+         
 
             foreach (var item in rFCMexicos)
             {

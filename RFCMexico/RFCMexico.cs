@@ -10,9 +10,9 @@ namespace RFCMexico
         public string SegundoNome { get; set; }
         public string TerceiroNome { get; set; }
         public DateTime DtNascimento { get; set; }
-        public string NascDia { get; set; }
-        public string NascMes { get; set; }
-        public string NascAno { get; set; }
+        private string NascDia { get; set; }
+        private string NascMes { get; set; }
+        private string NascAno { get; set; }
 
 
         public string GerarRFC(RFCMexico rfcMexico)
