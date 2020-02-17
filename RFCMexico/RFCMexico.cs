@@ -52,14 +52,14 @@ namespace RFCMexico
                                               "LOS ", "MAC ", "POR ", "SUS ",
                                               "THE ", "VAN ", "VON ", "AL ",
                                               "DE ", "EL ","EN ", "LA ", "MC ",
-                                              "MI ", "OF ", "A ", "E ", "Y ",
-                                              "DE LOS", "LOS "};
+                                              "MI ", "OF ", " A ", " E ", "Y ",
+                                              "DE LOS ", "LOS "};
 
             foreach (var item in prefixos)
             {
-                if (nome == item)
+                if (nome.Contains(item))
                 {
-                    nome = "";
+                    nome = nome.Replace(item, string.Empty);
                 }
             }
             return nome;
@@ -68,14 +68,14 @@ namespace RFCMexico
         private string RemoveNomesComuns(string nome)
         {
             string[] naoNomes = new string[] { "MARIA DEL ", "MARIA DE LOS ",
-                                               "MARIA ", "JOSE DE ", "JOSE ",
+                                               "MARIA ", " JOSE DE ", "JOSE ",
                                                "MA. ",  "MA ", "M. ", "J. ", "J "};
 
             foreach (var item in naoNomes)
             {
-                if (nome == item)
+                if (nome.Contains(item))
                 {
-                    nome = "";
+                    nome = nome.Replace(item, string.Empty);
                 }
             }
             return nome;
@@ -111,7 +111,7 @@ namespace RFCMexico
             {
                 bool eVogal = false;
 
-                for (int i = 0; i <= segundoNome.Length; i++)
+                for (int i = 1; i <= segundoNome.Length - 1; i++)
                 {
                     for (int x = 0; x < vogais.Length; x++)
                     {
@@ -120,13 +120,11 @@ namespace RFCMexico
                             vogal = segundoNome.Substring(i, 1);
                             eVogal = true;
                         }
-
                     }
                     if (eVogal)
                     {
                         break;
                     }
-
                 }
                 letras = segundoNome[0] + vogal + terceiroNome[0] + primeiroNome[0];
             }
