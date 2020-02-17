@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Globalization;
-using System.Text;
-using System.Text.RegularExpressions;
 
 
 namespace RFCMexico
@@ -143,12 +140,8 @@ namespace RFCMexico
                                                         "RATA","RUIN"};
             foreach (var item in palavrasNaoAceitas)
             {
-                if (palavra == item)
-                {
-                    palavra = palavra.Substring(0, 3) + "X";
-                }
+                palavra = palavra == item ? palavra.Substring(0, 3) + "X" : palavra;
             }
-
             return palavra;
         }
     }
